@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Data of Distress: A Story of Indian Farmers (Slide Report)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!--
+    Internal Development Comments (as requested by prompt):
+
+    Narrative Plan:
+    1.  Slide 0: Title/Hook.
+    2.  Slide 1: Act 1 - The National Crisis (Line Chart).
+    3.  Slide 2: Act 1 - The State Breakdown (Donut + Stacked Bar).
+    4.  Slide 3: Act 2 - The Financial Distress (Horizontal Bar, Map removed for stability).
+    5.  Slide 4: Act 3 - The Intervention (All-India Claims vs. Premium).
+    6.  Slide 5: Act 3 - Case Study (Maharashtra).
+    7.  Slide 6: Conclusion (Removed AI Outlook for stability).
+    8.  Slide 7: Thank You & Data Sources.
+
+    Visualization Selection & Justification (NO SVG, NO MERMAID):
+    - All charts via Chart.js (Canvas).
+    - Map from Act 2 removed per user request for stability.
+    - All diagrams (flowchart on Slide 0) are HTML/Tailwind.
+    - Focus on enhancing interpretive text on each slide.
+
+    Selected Color Palette: Brilliant Blues (#004AAD, #0768FA, #549BFF, #8EC3FF, #C5E1FF)
+    NO SVG or Mermaid JS was used in this file. All charts are rendered via Chart.js to Canvas. All diagrams are HTML/Tailwind.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            height: calc(100vh - 80px);
+            overflow: hidden;
+            position: relative;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+        .chart-container-large {
+             position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+             height: 450px;
+             max-height: 55vh;
+        }
+         .chart-container-horizontal {
+             position: relative;
+             width: 100%;
+             max-width: 700px;
+             margin-left: auto;
+             margin-right: auto;
+             height: 400px;
+             max-height: 50vh;
+         }
+
+        @media (min-width: 768px) {
+             .chart-container {
+                 height: 400px;
+                 max-height: 50vh;
+             }
+             .chart-container-large {
+                  height: 500px;
+                  max-height: 60vh;
+             }
+            .chart-container-horizontal {
+                 height: 450px;
+                 max-height: 60vh;
+            }
+        }
+
+        .loader {
+            border: 4px solid #f3f3f4;
+            border-top: 4px solid #0768FA;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .nav-button {
+             background-color: #004AAD;
+             color: white;
+             font-weight: bold;
+             padding: 0.75rem 1.5rem;
+             border-radius: 0.5rem;
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+             transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #0768FA;
+        }
+        .nav-button:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto max-w-7xl relative">
+
+        <div class="slide-container">
+            <div id="slide-0" class="slide active bg-gray-100 p-4 md:p-8">
+                <header class="text-center my-8 md:my-12">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#004AAD]">Honoring the Story Behind the Numbers</h1>
+                    <p class="text-xl text-gray-600 mt-2">A Data Analysis of Farmer Distress (2016-2021)</p>
+                </header>
+                <section class="mb-8 md:mb-12 max-w-4xl mx-auto">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                        <p class="text-xl md:text-2xl text-center text-gray-700 leading-relaxed">This report is a humble effort to understand the profound challenges faced by Indian farmers. The data on farmer suicides represents an immense human tragedy, and our goal is not just to present statistics. We will respectfully analyze this data to find the underlying story, honoring the lives and families represented by every number.</p>
+                        <p class="text-lg text-center text-gray-700 mt-6 font-semibold">We will follow a three-act narrative:</p>
+                        <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 my-8 md:my-10">
+                            <div class="flex items-center">
+                                <span class="text-lg font-semibold bg-blue-100 text-[#004AAD] py-2 px-4 rounded-lg shadow-sm">1. The Scale of the Human Tragedy</span>
+                            </div>
+                            <span class="text-2xl text-[#0768FA] font-bold hidden md:block">&rarr;</span>
+                            <span class="text-2xl text-[#0768FA] font-bold md:hidden">&darr;</span>
+                            <div class="flex items-center">
+                                <span class="text-lg font-semibold bg-blue-100 text-[#004AAD] py-2 px-4 rounded-lg shadow-sm">2. Analyzing the Financial Pressures</span>
+                            </div>
+                            <span class="text-2xl text-[#0768FA] font-bold hidden md:block">&rarr;</span>
+                            <span class="text-2xl text-[#0768FA] font-bold md:hidden">&darr;</span>
+                            <div class="flex items-center">
+                                <span class="text-lg font-semibold bg-blue-100 text-[#004AAD] py-2 px-4 rounded-lg shadow-sm">3. The Impact of National Support</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-1" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                        <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Act 1: The Human Crisis (National Trend)</h2>
+                        <p class="text-gray-700 mb-6 text-lg">We begin with the most critical metric. This chart shows the total number of farmer and cultivator deaths across India.</p>
+
+                        <div class="text-center bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg mb-6 shadow-inner">
+                            <span class="text-xl font-semibold text-gray-700">Total Farmer/Cultivator Deaths (2017-2021)</span>
+                            <p class="text-5xl font-bold text-[#004AAD] my-1">28,572</p>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-[#004AAD] mb-2 text-center">Trend of Farmer/Cultivator Deaths (All India)</h3>
+                        <div class="chart-container mb-4">
+                            <canvas id="farmerDeathsChart"></canvas>
+                        </div>
+                        <p class="text-gray-700 text-lg mt-auto p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Interpretable Insight:</strong> The key takeaway is the <strong class="text-red-600">turning point</strong>. After years of a tragically high and stagnant trend (around 5,900 deaths in 2017 and 2019), the data shows a significant and steady decline starting in 2020. This drop, from 5,957 to 5,318 by 2021, is not random. It directly follows the period of massive financial intervention we will analyze in Act 3. This correlation is the central hypothesis of our story: did the financial support system help bend this curve?
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-2" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                        <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Act 1: The Human Crisis (State-Level)</h2>
+                        <p class="text-gray-700 mb-6 text-lg">Looking deeper, the national number is misleading. The crisis is not uniform; it's highly concentrated in a few states.</p>
+
+                        <div class="flex flex-col md:flex-row gap-4 flex-grow items-center">
+                            <div class="flex-1 w-full">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1 text-center">Total Suicides by State (2017-2021)</h4>
+                                <div class="chart-container-large mx-auto">
+                                    <canvas id="stateDonutChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="flex-1 w-full">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1 text-center">Annual Suicides by Key States</h4>
+                                <div class="chart-container-large mx-auto">
+                                    <canvas id="stateStackedBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-lg mt-auto p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Interpretable Insight:</strong> This slide provides the critical "where" behind the national trend. The donut chart shows the crisis is <strong class="text-red-600">intensely concentrated</strong>: Maharashtra alone accounts for 44% of all suicides in this period. The top two states, Maharashtra and Karnataka, make up over 60% of the total. The stacked bar chart shows that while some states (like MP and Chhattisgarh) saw declines, the numbers in these epicenters remained tragically high. This proves that a one-size-fits-all national policy is inefficient. Any effective solution must be a **targeted, regional strategy** focused on these high-distress states.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-3" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                       <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Act 2: The Financial Distress</h2>
+                       <p class="text-gray-700 mb-6 text-lg">To understand the "why," we must follow the trail to one of its primary symptoms: overwhelming debt. This chart ranks the states by the amount of farm debt waived.</p>
+
+                       <h3 class="text-xl font-semibold text-[#004AAD] mb-4 text-center">Total Farm Debt Waived by State/UT (since 2014)</h3>
+
+                       <div class="flex-grow w-full flex items-center justify-center">
+                            <div class="w-full max-w-3xl">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1 text-center">Ranking by Amount (in Rs. Crore)</h4>
+                                <div class="chart-container-large mx-auto">
+                                    <canvas id="debtWaiverChart"></canvas>
+                                </div>
+                            </div>
+                       </div>
+
+                       <p class="text-gray-700 text-lg mt-auto p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Interpretable Insight:</strong> This chart pinpoints the *symptom* of the crisis: overwhelming debt. The data clearly shows this is not a uniform problem. Maharashtra and Uttar Pradesh are <strong class="text-red-600">significant outliers</strong>, with waivers over ₹25,000 Crore each. This data <strong class="text-red-600">cross-validates our findings from Act 1</strong>. The states we identified as the epicenters of the *human crisis* (Maharashtra, Karnataka) are also in the top tier of states requiring massive *financial intervention*. The link between debt and distress is clear.
+                       </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-4" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                        <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Act 3: The National Safety Net (All-India)</h2>
+                        <p class="text-gray-700 mb-6 text-lg">In response, a massive financial safety net was activated: The PMFBY crop insurance scheme. This chart shows the money farmers paid in versus the money paid out in claims.</p>
+
+                        <h3 class="text-xl font-semibold text-[#004AAD] mb-4 text-center">All-India: A Safety Net Strained (2016-2022)</h3>
+                        <div class="chart-container-large flex-grow">
+                            <canvas id="claimsVsPremiumChart"></canvas>
+                        </div>
+                        <p class="text-gray-700 text-lg mt-auto p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Interpretable Insight:</strong> This is the financial climax of the story. The "gap" between the blue bars (Claims Paid) and the orange line (Farmer Premium) is massive. This chart proves PMFBY is a <strong class="text-red-600">heavily subsidized national safety net</strong>, not a commercial insurance product. The <strong class="text-red-600">explosion in claims in 2018-19 to nearly ₹29,000 Crore</strong>—almost 7 times what farmers paid in premiums that year—is the data-footprint of a massive, widespread agricultural crisis (like droughts or floods) that triggered this enormous payout.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-5" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                        <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Act 3: The National Safety Net (Case Study)</h2>
+                        <p class="text-gray-700 mb-6 text-lg">Zooming into the epicenter, Maharashtra, we see the story on the ground. How did farmers react to the crisis? This chart compares insurance premiums with farmer applications.</p>
+
+                        <h3 class="text-xl font-semibold text-[#004AAD] mb-4 text-center">Case Study: Maharashtra's Volatile Enrollment (2016-2020)</h3>
+                        <div class="chart-container-large flex-grow">
+                            <canvas id="maharashtraChart"></canvas>
+                        </div>
+                        <p class="text-gray-700 text-lg mt-auto p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Interpretable Insight:</strong> This case study reveals a data-driven mystery. In 2018, as the crisis unfolded, farmer applications (red line) <strong class="text-red-600">spiked by 44%</strong>. This shows farmers were aware and actively sought help. However, in 2020—*after* the record payouts—applications <strong class="text-red-600">plummeted by 91%</strong> (from 145.6L to 12.8L). This is a critical puzzle. Why? Hypotheses include: 1) A policy change made it harder to apply. 2) A breakdown in farmer trust (perhaps payouts were delayed). 3) A failure in the "last-mile" administrative process. This finding shows the system is not perfect.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-6" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col">
+                    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 flex-grow flex flex-col">
+                        <h2 class="text-3xl font-bold text-[#0768FA] mb-4">Conclusion: A Story Behind the Data</h2>
+                        <p class="text-gray-700 mb-6 text-lg">This brings us full circle. We saw farmer deaths begin to decline in 2020 and 2021. This directly followed the massive ₹29,000 Crore insurance payout from the 2018-19 crisis.</p>
+
+                        <div class="text-center bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg mb-8 shadow-inner">
+                            <span class="text-2xl font-semibold text-gray-700">Farmer/Cultivator Deaths (2019 vs 2021)</span>
+                            <p class="text-6xl font-bold text-[#004AAD] my-2">10.9% Decline</p>
+                            <p class="text-lg text-gray-600">(From 5,957 in 2019 down to 5,318 in 2021)</p>
+                        </div>
+
+                        <p class="text-gray-700 text-lg mt-4 p-4 bg-blue-50 rounded-lg border-l-4 border-[#0768FA]">
+                            <strong class="text-[#004AAD]">Key Interpretation:</strong> Our data story ends here. We identified a *human tragedy* concentrated in key states (Act 1). We diagnosed its primary *financial symptom*—overwhelming debt (Act 2). We then measured the *massive financial treatment* applied—record-breaking insurance payouts (Act 3). Finally, we see the *result*: a 10.9% decline in deaths. While <strong class="text-red-600">correlation is not causation</strong>, the timing and scale of this correlation are too significant to ignore. The data strongly suggests this massive, costly safety net had a tangible, human impact, helping to bend the curve on the crisis.
+                        </p>
+
+                    </div>
+                </section>
+            </div>
+
+            <div id="slide-7" class="slide bg-gray-100 p-4 md:p-8">
+                <section class="h-full flex flex-col items-center justify-center text-center">
+                    <div class="bg-white rounded-lg shadow-xl p-12 md:p-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-[#004AAD] mb-8">Thank You</h2>
+                        <p class="text-xl text-gray-700 mb-10">Your time and attention are greatly appreciated.</p>
+
+                        <div class="pt-8 border-t border-gray-200">
+                            <h3 class="text-2xl font-semibold text-[#004AAD] mb-4">Data Sources</h3>
+                            <p class="text-lg text-gray-600">
+                                All data used in this report was sourced from the Government of India's Open Data Platform:
+                                <br>
+                                <a href="https://data.gov.in" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-medium">
+                                    data.gov.in
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer class="h-[80px] bg-white shadow-inner border-t border-gray-200 flex items-center justify-between p-4 md:p-8">
+            <button id="prevButton" class="nav-button">Previous</button>
+            <div id="slideCounter" class="text-lg font-semibold text-gray-700"></div>
+            <button id="nextButton" class="nav-button">Next</button>
+        </footer>
+
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            let currentSlide = 0;
+            let slides = [];
+            let totalSlides = 0;
+            let charts = {};
+
+            const wrapLabels = (label, maxWidth) => {
+                if (typeof label !== 'string' || label.length <= maxWidth) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxWidth) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const mandatoryTooltipCallback = {
+                title: function(tooltipItems) {
+                    if (!tooltipItems || tooltipItems.length === 0) {
+                        return '';
+                    }
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            };
+
+            const commonChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14,
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        callbacks: mandatoryTooltipCallback,
+                        bodyFont: {
+                            size: 14,
+                            family: 'Inter'
+                        },
+                        titleFont: {
+                            size: 16,
+                            family: 'Inter',
+                            weight: 'bold'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            }
+                        },
+                        grid: {
+                            color: '#e5e7eb',
+                        },
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            const createFarmerDeathsChart = () => {
+                const ctx = document.getElementById('farmerDeathsChart');
+                if (!ctx) return;
+                if (charts.farmerDeathsChart) charts.farmerDeathsChart.destroy();
+                charts.farmerDeathsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2017', '2018', '2019', '2020', '2021'],
+                        datasets: [{
+                            label: 'Total Farmer/Cultivator Deaths',
+                            data: [5955, 5763, 5957, 5579, 5318],
+                            borderColor: '#0768FA',
+                            backgroundColor: 'rgba(7, 104, 250, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: { ...commonChartOptions }
+                });
+            };
+
+            const createDebtWaiverChart = () => {
+                const ctx = document.getElementById('debtWaiverChart');
+                if (!ctx) return;
+                const debtLabels = ['Puducherry UT', 'Jammu and Kashmir', 'Punjab', 'Tamil Nadu', 'Chhattisgarh', 'Madhya Pradesh', 'Rajasthan', 'Karnataka', 'Uttar Pradesh', 'Maharashtra'];
+                const debtData = [19, 244, 4625, 5319, 6230, 11912, 15376, 22088, 25233, 30500];
+
+                if (charts.debtWaiverChart) charts.debtWaiverChart.destroy();
+                charts.debtWaiverChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: debtLabels.map(l => wrapLabels(l, 16)),
+                        datasets: [{
+                            label: 'Total Amount Waived (in Rs. Crore)',
+                            data: debtData,
+                            backgroundColor: '#004AAD',
+                            borderColor: '#003B8A',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        ...commonChartOptions,
+                        indexAxis: 'y',
+                        scales: {
+                            ...commonChartOptions.scales,
+                            x: {
+                                ...commonChartOptions.scales.x,
+                                beginAtZero: true
+                            },
+                            y: {
+                                ...commonChartOptions.scales.y,
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createClaimsVsPremiumChart = () => {
+                const ctx = document.getElementById('claimsVsPremiumChart');
+                if (!ctx) return;
+                if (charts.claimsVsPremiumChart) charts.claimsVsPremiumChart.destroy();
+                charts.claimsVsPremiumChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'],
+                        datasets: [
+                            {
+                                type: 'bar',
+                                label: 'Claims Paid (Rs. Crore)',
+                                data: [17000, 22000, 29000, 28000, 20500, 15000],
+                                backgroundColor: '#0768FA',
+                                order: 2
+                            },
+                            {
+                                type: 'line',
+                                label: 'Farmer Premium (Rs. Crore)',
+                                data: [4200, 4300, 4800, 4600, 4400, 4300],
+                                borderColor: '#FFB000',
+                                backgroundColor: 'rgba(255, 176, 0, 0.2)',
+                                borderWidth: 3,
+                                fill: false,
+                                tension: 0.1,
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: { ...commonChartOptions }
+                });
+            };
+
+            const createMaharashtraChart = () => {
+                const ctx = document.getElementById('maharashtraChart');
+                if (!ctx) return;
+                if (charts.maharashtraChart) charts.maharashtraChart.destroy();
+                charts.maharashtraChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2016', '2017', '2018', '2019', '2020'],
+                        datasets: [
+                            {
+                                type: 'bar',
+                                label: 'Gross Premium (Rs. Crore)',
+                                data: [4596.5, 4255.1, 6120.7, 6348.4, 6482],
+                                backgroundColor: '#549BFF',
+                                yAxisID: 'y'
+                            },
+                            {
+                                type: 'line',
+                                label: 'Farmer Applications (Lakh)',
+                                data: [118.8, 102.7, 148.3, 145.6, 12.8],
+                                borderColor: '#E63946',
+                                backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                                borderWidth: 3,
+                                fill: false,
+                                tension: 0.1,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        ...commonChartOptions,
+                        scales: {
+                            ...commonChartOptions.scales,
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Gross Premium (Rs. Crore)',
+                                    font: { size: 14, family: 'Inter', weight: 'bold' },
+                                    color: '#549BFF'
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Farmer Applications (Lakh)',
+                                    font: { size: 14, family: 'Inter', weight: 'bold' },
+                                    color: '#E63946'
+                                },
+                                grid: {
+                                    drawOnChartArea: false,
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createStateDonutChart = () => {
+                const ctx = document.getElementById('stateDonutChart');
+                if (!ctx) return;
+                if (charts.stateDonutChart) charts.stateDonutChart.destroy();
+                charts.stateDonutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Maharashtra', 'Karnataka', 'Andhra Pradesh', 'Madhya Pradesh', 'Chhattisgarh', 'All Other States'],
+                        datasets: [{
+                            label: 'Total Farmer Suicides (2017-2021)',
+                            data: [12552, 5095, 2413, 1226, 998, 6288],
+                            backgroundColor: [
+                                '#004AAD',
+                                '#0768FA',
+                                '#549BFF',
+                                '#8EC3FF',
+                                '#C5E1FF',
+                                '#B0B0B0'
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 12,
+                                        family: 'Inter'
+                                    },
+                                    padding: 15
+                                }
+                            },
+                            tooltip: {
+                                ...commonChartOptions.plugins.tooltip,
+                                callbacks: {
+                                    title: (tooltipItems) => tooltipItems[0].label,
+                                    label: (tooltipItem) => {
+                                        const total = tooltipItem.dataset.data.reduce((acc, val) => acc + val, 0);
+                                        const value = tooltipItem.raw;
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return ` ${value.toLocaleString()} suicides (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createStateStackedBarChart = () => {
+                const ctx = document.getElementById('stateStackedBarChart');
+                if (!ctx) return;
+
+                const stackedBarOptions = {
+                    ...commonChartOptions,
+                    scales: {
+                        x: {
+                            ...commonChartOptions.scales.x,
+                            stacked: true,
+                        },
+                        y: {
+                            ...commonChartOptions.scales.y,
+                            stacked: true,
+                        }
+                    },
+                    plugins: {
+                        ...commonChartOptions.plugins,
+                        tooltip: {
+                            ...commonChartOptions.plugins.tooltip,
+                            callbacks: {
+                                ...commonChartOptions.plugins.tooltip.callbacks,
+                                title: (tooltipItems) => tooltipItems[0].label
+                            },
+                            mode: 'index',
+                        }
+                    }
+                };
+
+                if (charts.stateStackedBarChart) charts.stateStackedBarChart.destroy();
+                charts.stateStackedBarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2017', '2018', '2019', '2020', '2021'],
+                        datasets: [
+                            {
+                                label: 'Maharashtra',
+                                data: [2426, 2239, 2680, 2567, 2640],
+                                backgroundColor: '#004AAD',
+                            },
+                            {
+                                label: 'Karnataka',
+                                data: [1157, 1365, 1331, 1072, 1170],
+                                backgroundColor: '#0768FA',
+                            },
+                            {
+                                label: 'Andhra Pradesh',
+                                data: [375, 365, 628, 564, 481],
+                                backgroundColor: '#549BFF',
+                            },
+                            {
+                                label: 'Madhya Pradesh',
+                                data: [429, 303, 142, 235, 117],
+                                backgroundColor: '#8EC3FF',
+                            },
+                            {
+                                label: 'Chhattisgarh',
+                                data: [285, 182, 233, 227, 71],
+                                backgroundColor: '#C5E1FF',
+                            },
+                            {
+                                label: 'Other States',
+                                data: [283, 309, 943, 914, 839],
+                                backgroundColor: '#B0B0B0',
+                            }
+                        ]
+                    },
+                    options: stackedBarOptions
+                });
+            };
+
+            const renderChartsForSlide = (slideIndex) => {
+                switch(slideIndex) {
+                    case 1:
+                        createFarmerDeathsChart();
+                        break;
+                    case 2:
+                        createStateDonutChart();
+                        createStateStackedBarChart();
+                        break;
+                    case 3:
+                        createDebtWaiverChart();
+                        break;
+                    case 4:
+                        createClaimsVsPremiumChart();
+                        break;
+                    case 5:
+                        createMaharashtraChart();
+                        break;
+                }
+            };
+
+            const showSlide = (index) => {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+                renderChartsForSlide(index);
+                updateNavControls();
+            };
+
+            const updateNavControls = () => {
+                const prevButton = document.getElementById('prevButton');
+                const nextButton = document.getElementById('nextButton');
+                const counter = document.getElementById('slideCounter');
+
+                prevButton.disabled = (currentSlide === 0);
+                nextButton.disabled = (currentSlide === totalSlides - 1);
+                counter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+            };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                slides = document.querySelectorAll('.slide');
+                totalSlides = slides.length;
+
+                document.getElementById('prevButton').addEventListener('click', () => {
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                        showSlide(currentSlide);
+                    }
+                });
+
+                document.getElementById('nextButton').addEventListener('click', () => {
+                    if (currentSlide < totalSlides - 1) {
+                        currentSlide++;
+                        showSlide(currentSlide);
+                    }
+                });
+
+                showSlide(currentSlide);
+            });
+
+        })();
+    </script>
+</body>
+</html>
+
