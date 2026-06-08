@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills — Niteenkumar Pardeshi</title>
+<meta name="description" content="Technical skills — Python, R, SQL, Tableau, Statistics, Machine Learning, Clinical Data." />
+<meta name="keywords" content="Data Analyst, Data Scientist, Machine Learning, Statistical Analysis, Python, R, SQL, Tableau, PowerBI, Portfolio, Niteenkumar Pardeshi" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="skills">
+<canvas id="particleCanvas"></canvas>
+<div class="bg-dots"></div>
+<div class="scroll-indicator" id="scrollIndicator"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">✕</button><img id="lightboxImg" src="" alt="Certificate" onclick="event.stopPropagation()" /></div>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><div class="logo-badge">NP</div>Niteenkumar Pardeshi</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="achievements.html">Achievements</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode"><span class="icon-moon">🌙</span><span class="icon-sun">☀️</span></button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html" onclick="closeMenu()">About</a>
+  <a href="experience.html" onclick="closeMenu()">Experience</a>
+  <a href="education.html" onclick="closeMenu()">Education</a>
+  <a href="projects.html" onclick="closeMenu()">Projects</a>
+  <a href="skills.html" onclick="closeMenu()">Skills</a>
+  <a href="achievements.html" onclick="closeMenu()">Achievements</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+</div>
+
+<main>
+<div class="page-hero">
+  <div class="section-label">Skills</div>
+  <h1 class="section-title">My Technical Toolkit</h1>
+  <p class="section-sub">A versatile stack spanning statistical modeling, machine learning, and business intelligence.</p>
+</div>
+<section id="skills" style="position: relative; overflow: hidden;">
+  <!-- Floating background logos -->
+  <div class="floating-logos" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.12; z-index: 0;">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" style="position: absolute; top: 5%; left: 5%; width: 100px;" alt="Python">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" style="position: absolute; top: 10%; right: 10%; width: 120px;" alt="Pandas">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" style="position: absolute; bottom: 10%; left: 10%; width: 110px;" alt="NumPy">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg" style="position: absolute; top: 55%; right: 5%; width: 90px;" alt="R">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" style="position: absolute; top: 45%; left: 45%; width: 140px;" alt="Scikit-Learn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Tableau_Logo.png" style="position: absolute; bottom: 20%; right: 25%; width: 130px;" alt="Tableau">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" style="position: absolute; top: 15%; left: 45%; width: 80px;" alt="PowerBI">
+    
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" style="position: absolute; top: 30%; left: 15%; width: 100px;" alt="TensorFlow">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" style="position: absolute; bottom: 35%; left: 25%; width: 80px;" alt="PyTorch">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" style="position: absolute; bottom: 10%; left: 45%; width: 110px;" alt="Matplotlib">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" style="position: absolute; top: 25%; right: 35%; width: 70px;" alt="Excel">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/SPSS_logo.png" style="position: absolute; bottom: 5%; right: 45%; width: 120px;" alt="SPSS">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Tidyverse_logo.png" style="position: absolute; top: 35%; right: 15%; width: 90px;" alt="Tidyverse">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Ggplot2_hex_logo.png" style="position: absolute; bottom: 45%; right: 10%; width: 80px;" alt="ggplot2">
+  </div>
+  <div class="bento-grid reveal stagger-children" style="position: relative; z-index: 1;">
+    
+    <!-- Row 1: Top Core Skills -->
+    <div class="bento-card bento-span-8">
+      <div class="bento-content">
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="24" height="24" style="margin-right:12px;"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Statistical & Machine Learning</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Advanced statistical techniques and predictive modeling algorithms.</p>
+        <div class="tech-nodes">
+          <div class="tech-node"><div class="node-indicator"></div>Design of Experiments</div>
+          <div class="tech-node"><div class="node-indicator"></div>Hypothesis Testing</div>
+          <div class="tech-node">Predictive Modeling</div>
+          <div class="tech-node">Advanced Regression</div>
+          <div class="tech-node">Feature Selection (RFE)</div>
+          <div class="tech-node">Supervised Learning</div>
+          <div class="tech-node">Random Forest</div>
+          <div class="tech-node">SVM</div>
+          <div class="tech-node">Naive Bayes</div>
+          <div class="tech-node">CatBoost</div>
+          <div class="tech-node">GBM</div>
+          <div class="tech-node">Classification (LDA/QDA)</div>
+          <div class="tech-node">Dimensionality Reduction</div>
+          <div class="tech-node">Cross-Validation</div>
+          <div class="tech-node">Data Mining</div>
+          <div class="tech-node">Outlier Analysis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento-card bento-span-4" style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="bento-content">
+        <div class="radar-chart-wrap" style="margin:0 auto;">
+          <svg id="radarSvg" viewBox="0 0 300 300"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Programming, BI & Data Quality -->
+    <div class="bento-card bento-span-4">
+      <div class="bento-content">
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="20" height="20" style="margin-right:8px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Programming</h3>
+        <div class="tech-nodes" style="margin-bottom: 16px;">
+          <div class="tech-node" style="border-color:var(--cyan);"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" style="width: 16px; height: 16px; margin-right: 6px;" alt="Python">Python</div>
+          <div class="tech-node">Pandas</div><div class="tech-node">NumPy</div><div class="tech-node">scikit-learn</div><div class="tech-node">Matplotlib</div><div class="tech-node">Statsmodels</div><div class="tech-node">Streamlit</div><div class="tech-node">Seaborn</div><div class="tech-node">TensorFlow</div><div class="tech-node">PyTorch</div>
+        </div>
+        <div class="tech-nodes" style="margin-bottom: 16px;">
+          <div class="tech-node" style="border-color:var(--blue-soft);"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg" style="width: 16px; height: 16px; margin-right: 6px;" alt="R">R</div>
+          <div class="tech-node">dplyr</div><div class="tech-node">ggplot2</div><div class="tech-node">caret</div><div class="tech-node">glmnet</div><div class="tech-node">tidyverse</div><div class="tech-node">plotly</div><div class="tech-node">Quarto</div>
+        </div>
+        <div class="tech-nodes">
+          <div class="tech-node" style="border-color:#ffbd2e;"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/SAS_logo.svg" style="width: 24px; height: 16px; margin-right: 6px; object-fit: contain;" alt="SAS">SAS</div>
+          <div class="tech-node" style="border-color:#ff5f57;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" style="width: 16px; height: 16px; margin-right: 6px;" alt="SQL">SQL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento-card bento-span-4">
+      <div class="bento-content">
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="20" height="20" style="margin-right:8px;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> BI & Viz</h3>
+        <div class="tech-nodes" style="margin-bottom: 30px;">
+          <div class="tech-node">Tableau</div><div class="tech-node">PowerBI</div><div class="tech-node">R Shiny</div><div class="tech-node">Jupyter</div><div class="tech-node">Excel (Advanced)</div><div class="tech-node">SPSS</div><div class="tech-node">Minitab</div>
+        </div>
+        
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="20" height="20" style="margin-right:8px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Reporting</h3>
+        <div class="tech-nodes">
+          <div class="tech-node">RMarkdown</div><div class="tech-node">Quarto</div><div class="tech-node">GitHub</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento-card bento-span-4">
+      <div class="bento-content">
+        <h3 class="skill-group-title" style="margin-bottom:20px;">Proficiency Snapshot</h3>
+        <div class="skill-bar-list" style="margin-top:0;">
+          <div style="margin-bottom:16px;">
+            <div class="skill-bar-top"><span class="skill-bar-name" style="font-size:0.85rem;">Statistical Analysis</span><span class="skill-bar-pct" style="font-size:0.85rem;">95%</span></div>
+            <div class="skill-bar-track" style="height:6px;"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div class="skill-bar-top"><span class="skill-bar-name" style="font-size:0.85rem;">Machine Learning</span><span class="skill-bar-pct" style="font-size:0.85rem;">85%</span></div>
+            <div class="skill-bar-track" style="height:6px;"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div class="skill-bar-top"><span class="skill-bar-name" style="font-size:0.85rem;">Data Visualization</span><span class="skill-bar-pct" style="font-size:0.85rem;">90%</span></div>
+            <div class="skill-bar-track" style="height:6px;"><div class="skill-bar-fill" data-width="90"></div></div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div class="skill-bar-top"><span class="skill-bar-name" style="font-size:0.85rem;">Python / Pandas</span><span class="skill-bar-pct" style="font-size:0.85rem;">88%</span></div>
+            <div class="skill-bar-track" style="height:6px;"><div class="skill-bar-fill" data-width="88"></div></div>
+          </div>
+          <div style="margin-bottom:0;">
+            <div class="skill-bar-top"><span class="skill-bar-name" style="font-size:0.85rem;">Clinical Data (SPSS / R)</span><span class="skill-bar-pct" style="font-size:0.85rem;">82%</span></div>
+            <div class="skill-bar-track" style="height:6px;"><div class="skill-bar-fill" data-width="82"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Soft Skills & Data Quality -->
+    <div class="bento-card bento-span-6">
+      <div class="bento-content">
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="20" height="20" style="margin-right:8px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg> Data Quality</h3>
+        <div class="tech-nodes">
+          <div class="tech-node">Data Cleaning</div><div class="tech-node">Inconsistency Detection</div><div class="tech-node">Duplicate Removal</div><div class="tech-node">Multi-source Structuring</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento-card bento-span-6">
+      <div class="bento-content">
+        <h3 class="skill-group-title"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" width="20" height="20" style="margin-right:8px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Soft Skills</h3>
+        <div class="tech-nodes">
+          <div class="tech-node">Analytical Thinking</div><div class="tech-node">Problem Solving</div><div class="tech-node">Communication</div><div class="tech-node">Attention to Detail</div><div class="tech-node">Results-Driven</div><div class="tech-node">Team Collaboration</div><div class="tech-node">Synthesize & Simplify</div><div class="tech-node">Meets Tight Deadlines</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-copy">© 2026 <span>Niteenkumar Pardeshi</span> · Designed & Built with ❤️</div>
+  <div class="footer-links">
+    <a href="https://github.com/niteenishere/Certificates_and_images/tree/main" target="_blank" class="footer-icon-link" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+    <a href="https://www.linkedin.com/in/niteenkumar-pardeshi-42302439a" target="_blank" class="footer-icon-link" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="mailto:niteenkumarpardeshi@gmail.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+  </div>
+</footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+<script src="js/particles.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
